@@ -21,10 +21,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var flowerImageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let text = guessLetterTextField.text!
+        guessLetterButton.isEnabled = !(text.isEmpty)
     }
+    
+    func updateUIAfterGuess(){
+        guessLetterTextField.resignFirstResponder()
+        guessLetterTextField.text! = ""
+        guessLetterButton.isEnabled = false
+    }
+    @IBAction func guessLetterFieldChanged(_ sender: UITextField) {
+        sender.text = String(sender.text?.last ?? " ").trimmingCharacters(in: .whitespaces)
+        guessLetterButton.isEnabled = !(sender.text!.isEmpty)
+    }
+    
+    @IBAction func doneKeyPressed(_ sender: UITextField) {
+        updateUIAfterGuess()
+
+    }
+    
     @IBAction func guessLetterButtonPressed(_ sender: UIButton) {
+        updateUIAfterGuess()
+        
     }
+    
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
     }
     
